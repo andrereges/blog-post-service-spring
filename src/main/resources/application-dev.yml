@@ -1,0 +1,50 @@
+# Gera automaticamente o script do banco de dados
+#spring:
+#  jpa:
+#    properties:
+#      hibernate:
+#        hbm2ddl:
+#          delimiter: ;
+#      javax:
+#        persistence:
+#          schema-generation:
+#            create-source: metadata
+#            scripts:
+#              action: create
+#              create-target: create.sql
+
+---
+
+server:
+  port: 8080
+  error:
+    include-message: always
+    include-binding-errors: always
+
+spring:
+  config:
+    use-legacy-processing: true
+    activate:
+      on-profile: dev
+
+---
+
+spring:
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/blog
+    username: postgres
+    password: postgres
+    splatform: postgres
+    driver-class-name: org.postgresql.Driver
+    initialization-mode: ALWAYS
+
+  jpa:
+    open-in-view: true
+    ddl-auto: update
+
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
